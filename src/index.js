@@ -1,17 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { UseContext, ContextWithoutUseContext } from './components/context'
+import UseStateHook from './components/use-state'
+import UseEffect from './components/use-effect'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const MyContext = React.createContext();
+export { MyContext }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const mt = ({ marginTop: '1em' })
+
+const App = () => {
+  return (
+    <MyContext.Provider value={'Data from Provider in parent component'}>
+      <UseStateHook />
+      <fieldset style={mt}>
+        <legend>Context</legend>
+        <UseContext />
+        <ContextWithoutUseContext />
+      </fieldset>
+      <UseEffect style={mt} />
+    </MyContext.Provider>
+  )
+}
+ReactDOM.render(<App />, document.getElementById('root'))
